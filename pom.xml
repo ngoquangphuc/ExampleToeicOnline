@@ -31,6 +31,8 @@
         <hibernate.version>4.3.6.Final</hibernate.version>
         <testng.version>6.8.7</testng.version>
         <log4j.version>1.2.17</log4j.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
 
     <dependencies>
@@ -64,6 +66,18 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <!-- template sitemesh decorator easier than tiles library -->
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>${sitemesh.version}</version>
+        </dependency>
+        <!--JSTL-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
         </dependency>
     </dependencies>
 </project>
