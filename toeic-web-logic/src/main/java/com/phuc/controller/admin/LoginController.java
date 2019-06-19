@@ -2,6 +2,9 @@ package com.phuc.controller.admin;
 
 import com.phuc.command.UserCommand;
 import com.phuc.core.dto.UserDTO;
+import com.phuc.core.service.UserService;
+import com.phuc.core.service.impl.UserServiceImpl;
+import com.phuc.core.web.common.WebConstant;
 import com.phuc.core.web.utils.FormUtil;
 import org.apache.log4j.Logger;
 
@@ -16,15 +19,36 @@ import java.io.IOException;
 @WebServlet("/login.html")
 public class LoginController extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/views/web/login.jsp");
         rd.forward(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        UserCommand command = FormUtil.populate(UserCommand.class, request);
-//        UserDTO pojo = command.getPojo();
+        UserCommand command = FormUtil.populate(UserCommand.class, request);
+        UserDTO pojo = command.getPojo();
+        UserService userService = new UserServiceImpl();
+        try {
+            if (userService.isUserExist(pojo) != null) {
+                if (userService.findRoleByUser(pojo) != null && userService.findRoleByUser(pojo).getRoleDTO() != null) {
+                    if (userService.findRoleByUser(pojo).getRoleDTO().getName().equals(WebConstant.ROLE_ADMIN)) {
+                        request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_SUCCESS);
+                        request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Bạn là ADMIN");
+                    } else if (userService.findRoleByUser(pojo).getRoleDTO().getName().equals(WebConstant.ROLE_USER)) {
+                        request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_SUCCESS);
+                        request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Bạn là USER");
+                    }
+                }
+            }
+        } catch (NullPointerException e) {
+            log.error(e.getMessage(), e);
+            request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
+            request.setAttribute(WebConstant.MESSAGE_RESPONSE, "Tên hoặc mật khẩu sai");
+        }
+
         RequestDispatcher rd = request.getRequestDispatcher("/views/web/login.jsp");
         rd.forward(request, response);
     }
