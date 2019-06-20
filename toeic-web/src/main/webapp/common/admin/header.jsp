@@ -27,7 +27,7 @@
                     </c:url>
                     <a href="${logoutUrl}">
                         <i class="ace-icon fa fa-power-off"></i>
-<%--                        <fmt:message key="label.logout" bundle="${lang}"/>--%>
+                        <fmt:message key="label.logout" bundle="${lang}"/>
                     </a>
                 </li>
                 </li>
