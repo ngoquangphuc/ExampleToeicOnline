@@ -105,7 +105,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             }
             if (sortExpression != null && sortDirection != null) {
                 sql1.append(" order by ").append(sortExpression);
-                sql1.append(" " + (sortDirection.equals(CoreConstant.SORT_ASC) ? "asc" : "desc"));
+                sql1.append(" " + (sortDirection.equals(CoreConstant.SORT_ASC) ? "desc" : "asc"));
             }
             Query query1 = session.createQuery(sql1.toString());
             if (value != null) {

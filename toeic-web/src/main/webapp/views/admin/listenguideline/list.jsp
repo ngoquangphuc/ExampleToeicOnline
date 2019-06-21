@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url value="/admin-guideline-listen-list.html" var="requestURI"/>
 <html>
 <head>
     <title><fmt:message key="label.guideline.listen.list" bundle="${lang}"/></title>
@@ -31,11 +32,11 @@
                         <fmt:bundle basename="ApplicationResources">
                             <display:table id="tableList" name="items.listResult" partialList="true"
                                            size="${items.totalItems}" sort="external"
-                                           pagesize="${items.maxPageItems}"
+                                           pagesize="${items.maxPageItems}" requestURI="${requestURI}"
                                            class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
                                            style="margin: 3em 0 1.5em;">
-                                <display:column property="title" titleKey="label.guideline.listen.title" sortable="true"/>
-                                <display:column property="content" titleKey="label.guideline.listen.content" sortable="true"/>
+                                <display:column property="title" titleKey="label.guideline.listen.title" sortable="true" sortName="title"/>
+                                <display:column property="content" titleKey="label.guideline.listen.content" sortable="true" sortName="content"/>
                             </display:table>
                         </fmt:bundle>
                     </div>
