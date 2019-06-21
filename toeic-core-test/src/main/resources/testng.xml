@@ -2,7 +2,9 @@
 <suite name="TestAll">
     <test name="case1">
         <classes>
-            <class name="com.phuc.core.test.RoleTest"/>
+            <class name="com.phuc.api.test.LoginTest"/>
+            <class name="com.phuc.api.test.ListenGuidelineTest"/>
+            <class name="com.phuc.api.test.ReviewHashMap"/>
         </classes>
     </test>
 </suite>

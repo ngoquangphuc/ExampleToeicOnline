@@ -12,8 +12,7 @@ import java.util.List;
 
 public class ListenGuidelineServiceImpl implements ListenGuidelineService {
     private ListenGuidelineDao listenGuidelineDao = new ListenGuidelineDaoImpl();
-
-    public Object[] findListenGuidelineByProperties(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+    /* public Object[] findListenGuidelineByProperties(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         List<ListenGuidelineDTO> result = new ArrayList<ListenGuidelineDTO>();
         Object[] objects = listenGuidelineDao.findByProperty(property, value, sortExpression, sortDirection, offset, limit);
         for (ListenGuidelineEntity item : (List<ListenGuidelineEntity>) objects[1]) {
@@ -22,5 +21,5 @@ public class ListenGuidelineServiceImpl implements ListenGuidelineService {
         }
         objects[1] = result;
         return objects;
-    }
+    }*/
 }
