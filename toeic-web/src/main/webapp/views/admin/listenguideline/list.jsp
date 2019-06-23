@@ -20,7 +20,7 @@
 
                 }
             </script>
-            <ul class="breadcrumbs">
+            <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="#"><fmt:message key="label.home" bundle="${lang}"/> </a>
