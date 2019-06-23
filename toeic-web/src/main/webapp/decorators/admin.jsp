@@ -19,9 +19,11 @@
     <link rel="stylesheet" href="<c:url value="/template/admin/css/global_admin_style.css"/>">
     <script type="text/javascript" src="<c:url value="/template/admin/js/global_admin_script.js"/>"></script>
     <script src="<c:url value='/template/admin/assets/js/jquery.validate.min.js' />"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <%--ckeditor plugin--%>
-    <script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
+
+<%--ckeditor plugin--%>
+<%--    <script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js"/>"></script>--%>
 
     <%--sweetalert--%>
     <script type='text/javascript' src='<c:url value="/template/admin/sweetalert/sweetalert2.min.js"/>'></script>
@@ -32,7 +34,7 @@
     <script type="text/javascript" src="<c:url value="/template/data-table/data_table-1.0.0.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/template/data-table/data-table-bootstrap4-1.0.0.js"/>"></script>--%>
     <%--ckfinder--%>
-    <script type="text/javascript" src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
+<%--    <script type="text/javascript" src="<c:url value="/ckfinder/ckfinder.js"/>"></script>--%>
     <dec:head />
 </head>
 <body class="no-skin">

@@ -35,42 +35,7 @@
                                     ${messageResponse}
                             </div>
                         </c:if>
-<%--
-                        <form action="${formUrl}" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"><fmt:message
-                                        key="lebel.guideline.title" bundle="${lang}"/></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="pojo.title"/>
-                                </div>
-                            </div>
-                            <br/>
-                            <br/>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"><fmt:message
-                                        key="label.grammarguideline.upload.image" bundle="${lang}"/></label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="file"/>
-                                </div>
-                            </div>
-                            <br/>
-                            <br/>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"><fmt:message
-                                        key="lebel.guideline.content" bundle="${lang}"/></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="pojo.content"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <input type="submit" class="btn btn-white btn-warning btn-bold"
-                                           value="<fmt:message key="label.done" bundle="${lang}"/>"/>
-                                </div>
-                            </div>
-                        </form>
---%>
-                        <div class="form-group">
+                        <%--<div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right"></label>
                             <div class="col-sm-9">
                                 <h2>This is a heading</h2>
@@ -87,6 +52,48 @@
                             <div class="col-sm-9">
                                 <button>Click me</button>
                             </div>
+                        </div>--%>
+                       <%-- <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <input type="text" value="JSP-Servlet" id="value"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <p id="showValue">Nothing in this</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <button onclick="usingValAction()">Show Info</button>
+                            </div>
+                        </div>--%>
+                        <%--<div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" id="testCheckBox">
+                            </div>
+                        </div>--%>
+                        <%--jQuery CSS() method--%>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <p style="color: red" id="demoCSSMethod1">This is another paragraph.</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <button id="demoCSSMethod" onclick="demoCSSMethod()">Change color text</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,15 +101,23 @@
         </div>
     </div>
     <script type="text/javascript">
-        ${document}.ready(function () {
+        $(document).ready(function(){
             hideAllWhenClickButton();
         });
         
         function hideAllWhenClickButton() {
-            ${button}.click(function () {
-                ${"p"}.hide();
-            })
+            $("button").click(function () {
+                $("p").hide();
+            });
         }
+        function usingValAction() {
+            var value = $('#value').val();
+            $('#showValue').html(value);
+        }
+        function demoCSSMethod() {
+                $('#demoCSSMethod1').css("color", "blue");
+        }
+
     </script>
 </body>
 </html>
