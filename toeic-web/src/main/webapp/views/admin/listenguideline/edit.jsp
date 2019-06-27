@@ -81,7 +81,7 @@
                             </div>
                         </div>--%>
                         <%--jQuery CSS() method--%>
-                        <div class="form-group">
+                        <%--<div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right"></label>
                             <div class="col-sm-9">
                                 <p style="color: red" id="demoCSSMethod1">This is another paragraph.</p>
@@ -94,6 +94,16 @@
                             <div class="col-sm-9">
                                 <button id="demoCSSMethod" onclick="demoCSSMethod()">Change color text</button>
                             </div>
+                        </div>--%>
+                        <%--jQuery closest() method--%>
+                        <div style="width:500px;">div (great-grandparent)
+                            <ul>ul (second ancestor - second grandparent)
+                                <ul>ul (first ancestor - first grandparent)
+                                    <li>li (direct parent)
+                                        <span>span</span>
+                                    </li>
+                                </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
