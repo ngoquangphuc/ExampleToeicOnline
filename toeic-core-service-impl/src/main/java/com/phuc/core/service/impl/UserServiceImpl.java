@@ -8,6 +8,7 @@ import com.phuc.core.persistence.entity.UserEntity;
 import com.phuc.core.service.UserService;
 import com.phuc.core.utils.UserBeanUtil;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,5 +34,25 @@ public class UserServiceImpl implements UserService {
         }
         objects[1] = userDTOS;
         return objects;
+    }
+
+    public UserDTO findById(Integer userId) {
+        UserEntity userEntity = userDao.findById(userId);
+        UserDTO dto = UserBeanUtil.entity2Dto(userEntity);
+        return dto;
+    }
+
+    public void saveUser(UserDTO userDTO) {
+        Timestamp createdDate =  new Timestamp(System.currentTimeMillis());
+        userDTO.setCreatedDate(createdDate);
+        UserEntity entity = UserBeanUtil.dto2Entity(userDTO);
+        userDao.save(entity);
+    }
+
+    public UserDTO updateUser(UserDTO userDTO) {
+        UserEntity entity = UserBeanUtil.dto2Entity(userDTO);
+        entity = userDao.update(entity);
+        userDTO = UserBeanUtil.entity2Dto(entity);
+        return userDTO;
     }
 }
