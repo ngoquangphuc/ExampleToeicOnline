@@ -4,5 +4,5 @@ import com.phuc.core.data.dao.GenericDao;
 import com.phuc.core.persistence.entity.UserEntity;
 
 public interface UserDao extends GenericDao<Integer, UserEntity> {
-    UserEntity findUserByUserNameAndPassword(String name, String password);
+    Object[] checkLogin(String name, String password);
 }

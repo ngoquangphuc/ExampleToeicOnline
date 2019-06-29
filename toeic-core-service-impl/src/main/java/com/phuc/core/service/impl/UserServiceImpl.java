@@ -2,6 +2,7 @@ package com.phuc.core.service.impl;
 
 import com.phuc.core.dao.UserDao;
 import com.phuc.core.daoimpl.UserDaoImpl;
+import com.phuc.core.dto.CheckLogin;
 import com.phuc.core.dto.UserDTO;
 
 import com.phuc.core.persistence.entity.UserEntity;
@@ -15,16 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
-    public UserDTO isUserExist(UserDTO dto) {
-        UserEntity entity = SingletonDaoUtil.getUserDaoInstance().findUserByUserNameAndPassword(dto.getName(), dto.getPassword());
-        return UserBeanUtil.entity2Dto(entity);
-    }
-
-    public UserDTO findRoleByUser(UserDTO dto) {
-        UserEntity entity =  SingletonDaoUtil.getUserDaoInstance().findUserByUserNameAndPassword(dto.getName(), dto.getPassword());
-        return UserBeanUtil.entity2Dto(entity);
-    }
-
     public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         Object[] objects = SingletonDaoUtil.getUserDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
         List<UserDTO> userDTOS = new ArrayList<UserDTO>();
@@ -54,5 +45,17 @@ public class UserServiceImpl implements UserService {
         entity = SingletonDaoUtil.getUserDaoInstance().update(entity);
         userDTO = UserBeanUtil.entity2Dto(entity);
         return userDTO;
+    }
+
+    public CheckLogin checkLogin(String name, String password) {
+        CheckLogin checkLogin = new CheckLogin();
+        if (name != null && password != null) {
+            Object[] objects = SingletonDaoUtil.getUserDaoInstance().checkLogin(name, password);
+            checkLogin.setUserExist((Boolean) objects[0]);
+            if (checkLogin.isUserExist()) {
+                checkLogin.setRoleName(objects[1].toString());
+            }
+        }
+        return checkLogin;
     }
 }
