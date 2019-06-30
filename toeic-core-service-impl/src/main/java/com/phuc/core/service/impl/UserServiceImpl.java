@@ -5,15 +5,17 @@ import com.phuc.core.daoimpl.UserDaoImpl;
 import com.phuc.core.dto.CheckLogin;
 import com.phuc.core.dto.UserDTO;
 
+import com.phuc.core.dto.UserImportDTO;
+import com.phuc.core.persistence.entity.RoleEntity;
 import com.phuc.core.persistence.entity.UserEntity;
+import com.phuc.core.service.RoleService;
 import com.phuc.core.service.UserService;
 import com.phuc.core.service.utils.SingletonDaoUtil;
 import com.phuc.core.utils.UserBeanUtil;
+import org.apache.commons.lang.StringUtils;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserServiceImpl implements UserService {
     public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
@@ -57,5 +59,54 @@ public class UserServiceImpl implements UserService {
             }
         }
         return checkLogin;
+    }
+
+    public void validateImpoteUser(List<UserImportDTO> userImportDTOS) {
+        List<String> names = new ArrayList<String>();
+        List<String> roles = new ArrayList<String>();
+
+        for (UserImportDTO item: userImportDTOS) {
+            names.add(item.getName());
+            if (!roles.contains(item.getRoleName())) {
+                roles.add(item.getRoleName());
+            }
+        }
+
+        Map<String, UserEntity> userEntityMap = new HashMap<String, UserEntity>();
+        Map<String, RoleEntity> roleEntityMap = new HashMap<String, RoleEntity>();
+
+        if (names.size() > 0) {
+            List<UserEntity> userEntities = SingletonDaoUtil.getUserDaoInstance().findByUserAdd(names);
+            for (UserEntity item: userEntities) {
+                userEntityMap.put(item.getName().toUpperCase(), item);
+            }
+        }
+        if (roles.size() > 0) {
+            List<RoleEntity> roleEntities = SingletonDaoUtil.getRoleDaoInstance().findByRoles(roles);
+            for (RoleEntity item: roleEntities) {
+                roleEntityMap.put(item.getName().toUpperCase(), item);
+
+            }
+        }
+        for (UserImportDTO item: userImportDTOS) {
+            String message = item.getError();
+            if (item.isValid()) {
+                UserEntity userEntity = userEntityMap.get(item.getName().toUpperCase());
+                if (userEntity != null) {
+                    message += "<br/>";
+                    message += "Tên đăng nhập tồn tại";
+                }
+                RoleEntity roleEntity = roleEntityMap.get(item.getRoleName().toUpperCase());
+                if (roleEntity == null) {
+                    message += "<br/>";
+                    message += "Vai trò không tồn tại";
+                }
+                if (StringUtils.isNotBlank(message)) {
+                    item.setValid(false);
+                    item.setError(message.substring(5));
+                }
+
+            }
+        }
     }
 }

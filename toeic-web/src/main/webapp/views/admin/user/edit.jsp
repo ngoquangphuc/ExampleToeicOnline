@@ -33,17 +33,17 @@
                             <br/>
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <input type="password"
-                                           placeholder="<fmt:message key='label.user.password' bundle='${lang}'/>"
-                                           class="form-control" value="${item.pojo.password}" id="password" name="pojo.password" required>
+                                    <input type="text" placeholder="<fmt:message key='label.user.fullname' bundle='${lang}'/>"
+                                           class="form-control" value="${item.pojo.fullName}" name="pojo.fullName">
                                 </div>
                             </div>
                             <br/>
                             <br/>
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <input type="text" placeholder="<fmt:message key='label.user.fullname' bundle='${lang}'/>"
-                                           class="form-control" value="${item.pojo.fullName}" name="pojo.fullName">
+                                    <input type="password"
+                                           placeholder="<fmt:message key='label.user.password' bundle='${lang}'/>"
+                                           class="form-control" value="${item.pojo.password}" id="password" name="pojo.password" required>
                                 </div>
                             </div>
                             <br/>

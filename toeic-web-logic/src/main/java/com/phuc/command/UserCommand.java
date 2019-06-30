@@ -2,6 +2,7 @@ package com.phuc.command;
 
 import com.phuc.core.dto.RoleDTO;
 import com.phuc.core.dto.UserDTO;
+import com.phuc.core.dto.UserImportDTO;
 import com.phuc.core.web.command.AbstractCommand;
 
 import javax.management.relation.Role;
@@ -14,6 +15,7 @@ public class UserCommand extends AbstractCommand<UserDTO> {
     private String confirmPassword;
     private List<RoleDTO> roles;
     private Integer roleId;
+    private List<UserImportDTO> userImportDTOS;
 
     public String getConfirmPassword() {
         return confirmPassword;
@@ -37,5 +39,13 @@ public class UserCommand extends AbstractCommand<UserDTO> {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public List<UserImportDTO> getUserImportDTOS() {
+        return userImportDTOS;
+    }
+
+    public void setUserImportDTOS(List<UserImportDTO> userImportDTOS) {
+        this.userImportDTOS = userImportDTOS;
     }
 }
