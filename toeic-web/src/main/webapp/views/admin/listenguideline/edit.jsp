@@ -4,6 +4,11 @@
 <html>
 <head>
     <title><fmt:message key="label.guideline.listen.edit" bundle="${lang}"/></title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="main-content">
@@ -35,12 +40,12 @@
                                     ${messageResponse}
                             </div>
                         </c:if>
-                        <form action="${formUrl}" method="post" enctype="multipart/form-data">
+                        <form action="${formUrl}" method="post" enctype="multipart/form-data" id="formEdit">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"><fmt:message
                                         key="lebel.guideline.title" bundle="${lang}"/></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="pojo.title"/>
+                                    <input type="text" name="pojo.title" id="title"/>
                                 </div>
                             </div>
                             <br/>
@@ -49,7 +54,18 @@
                                 <label class="col-sm-3 control-label no-padding-right"><fmt:message
                                         key="label.grammarguideline.upload.image" bundle="${lang}"/></label>
                                 <div class="col-sm-9">
-                                    <input type="file" name="file"/>
+                                    <input type="file" name="file" id="uploadImage"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right"><fmt:message
+                                        key="label.grammarguideline.upload.image.view" bundle="${lang}"/></label>
+                                <div class="col-sm-9">
+                                    <c:if test="${not empty item.pojo.image}">
+                                        <c:set var="image" value="./fileupload/listenguideline/${item.pojo.image}"/>
+                                    </c:if>
+                                    <img src="${image}" id="viewImage" width="150px" height="150px">
                                 </div>
                             </div>
                             <br/>
@@ -57,8 +73,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"><fmt:message
                                         key="lebel.guideline.content" bundle="${lang}"/></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="pojo.content"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <c:if test="${not empty item.pojo.content}">
+                                        <c:set var="content" value="${item.pojo.content}"/>
+                                    </c:if>
+                                    <textarea name="pojo.content" cols="80" role="10" id="listenGuidelineContent">${content}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,5 +94,51 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('listenGuidelineContent');
+            validateData();
+            $('#uploadImage').change(function () {
+                readURL(this, "viewImage");
+            });
+        });
+        
+        function validateData() {
+            $('#formEdit').validate({
+                ignore: [],
+                rules: [],
+                message: []
+            });
+            $("#title").rules( "add", {
+                required: true,
+                messages: {
+                    required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+                }
+            });
+            $("#uploadImage").rules( "add", {
+                required: true,
+                messages: {
+                    required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+                }
+            });
+            $("#listenGuidelineContent").rules( "add", {
+                required: function () {
+                    CKEDITOR.instances.listenGuidelineContent.updateElement();
+                },
+                messages: {
+                    required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+                }
+            });
+        }
+        function readURL(input, imageId) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#' +imageId).attr('src', reader.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 </html>
