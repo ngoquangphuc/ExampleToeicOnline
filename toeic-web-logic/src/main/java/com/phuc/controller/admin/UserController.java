@@ -11,6 +11,7 @@ import com.phuc.core.service.RoleService;
 import com.phuc.core.service.UserService;
 import com.phuc.core.service.impl.RoleServiceImpl;
 import com.phuc.core.service.impl.UserServiceImpl;
+import com.phuc.core.service.utils.SingletonDaoUtil;
 import com.phuc.core.web.common.WebConstant;
 import com.phuc.core.web.utils.FormUtil;
 import com.phuc.core.web.utils.SingletonServiceUtil;
@@ -43,6 +44,7 @@ public class UserController extends HttpServlet {
     private final String READ_EXCEL = "read_excel";
     private final String VALIDATE_IMPORT = "validate_import";
     private final String LIST_USER_IMPORT = "list_user_import";
+    private final String IMPORT_DATA = "import_data";
     ResourceBundle bundle = ResourceBundle.getBundle("ApplicationResources");
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -134,8 +136,14 @@ public class UserController extends HttpServlet {
                     validateData(excelValues);
                     SessionUtil.getInstance().putValue(request, LIST_USER_IMPORT, excelValues);
                     response.sendRedirect("/admin-user-import-validate.html?urlType=validate_import");
-
                 }
+            }
+            if (userCommand.getUrlType() != null && userCommand.getUrlType().equals(IMPORT_DATA)) {
+                List<UserImportDTO> userImportDTOS = (List<UserImportDTO>) SessionUtil.getInstance().getValue(request, LIST_USER_IMPORT);
+                SingletonServiceUtil.getUserServiceInstance().saveUserImpote(userImportDTOS);
+                SessionUtil.getInstance().remove(request, LIST_USER_IMPORT);
+                response.sendRedirect("/admin-user-list.html?urlType=url_list");
+
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);

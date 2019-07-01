@@ -21,7 +21,7 @@
     <script src="<c:url value='/template/admin/assets/js/jquery.validate.min.js' />"></script>
 
     <%--ckeditor plugin--%>
-<%--    <script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js"/>"></script>--%>
+    <script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
 
     <%--sweetalert--%>
     <script type='text/javascript' src='<c:url value="/template/admin/sweetalert/sweetalert2.min.js"/>'></script>
