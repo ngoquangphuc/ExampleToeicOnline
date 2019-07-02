@@ -43,9 +43,9 @@
                         <form action="${formUrl}" method="post" enctype="multipart/form-data" id="formEdit">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"><fmt:message
-                                        key="lebel.guideline.title" bundle="${lang}"/></label>
+                                        key="label.guideline.title" bundle="${lang}"/></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="pojo.title" id="title"/>
+                                    <input type="text" name="pojo.title" id="title"value="${item.pojo.title}"/>
                                 </div>
                             </div>
                             <br/>
@@ -72,7 +72,7 @@
                             <br/>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"><fmt:message
-                                        key="lebel.guideline.content" bundle="${lang}"/></label>
+                                        key="label.guideline.content" bundle="${lang}"/></label>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
@@ -88,6 +88,9 @@
                                            value="<fmt:message key="label.done" bundle="${lang}"/>"/>
                                 </div>
                             </div>
+                            <c:if test="${not empty item.pojo.listenGuidelineId}">
+                                <input type="hidden" name="pojo.listenGuidelineId" value="${item.pojo.listenGuidelineId}">
+                            </c:if>
                         </form>
                     </div>
                 </div>
@@ -95,6 +98,10 @@
         </div>
     </div>
     <script>
+        var listenGuidelineId = '';
+        <c:if test="${not empty item.pojo.listenGuidelineId}">
+            listenGuidelineId = ${item.pojo.listenGuidelineId};
+        </c:if>
         $(document).ready(function () {
             CKEDITOR.replace('listenGuidelineContent');
             validateData();
@@ -115,12 +122,14 @@
                     required: '<fmt:message key="label.empty" bundle="${lang}"/>'
                 }
             });
-            $("#uploadImage").rules( "add", {
-                required: true,
-                messages: {
-                    required: '<fmt:message key="label.empty" bundle="${lang}"/>'
-                }
-            });
+            if (listenGuidelineId == '') {
+                $("#uploadImage").rules( "add", {
+                    required: true,
+                    messages: {
+                        required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+                    }
+                });
+            }
             $("#listenGuidelineContent").rules( "add", {
                 required: function () {
                     CKEDITOR.instances.listenGuidelineContent.updateElement();

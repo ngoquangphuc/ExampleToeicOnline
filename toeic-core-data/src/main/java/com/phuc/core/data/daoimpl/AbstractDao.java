@@ -3,6 +3,7 @@ package com.phuc.core.data.daoimpl;
 import com.phuc.core.commom.constant.CoreConstant;
 import com.phuc.core.common.utils.HibernateUtil;
 import com.phuc.core.data.dao.GenericDao;
+import org.apache.log4j.Logger;
 import org.hibernate.*;
 
 import java.io.Serializable;
@@ -12,15 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T> {
-
-    private Class<T> persisenceClass;
+    private final Logger log = Logger.getLogger(this.getClass());
+    private Class<T> persistenceClass;
 
     public AbstractDao() {
-        this.persisenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
     public String getPersistenceClassName() {
-        return persisenceClass.getSimpleName();
+        return persistenceClass.getSimpleName();
     }
 
     public List<T> findAll() {
@@ -37,6 +38,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -54,6 +56,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -69,6 +72,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -80,12 +84,13 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            result = (T) session.get(persisenceClass, id);
+            result = (T) session.get(persistenceClass, id);
             if (result == null) {
                 throw new ObjectNotFoundException("Not found " + id, null);
             }
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -156,6 +161,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -169,13 +175,14 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         Transaction transaction = session.beginTransaction();
         try {
             for (ID item : ids) {
-                T t = (T) session.get(persisenceClass, item);
+                T t = (T) session.get(persistenceClass, item);
                 session.delete(t);
                 count++;
             }
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -188,12 +195,13 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         Transaction transaction = session.beginTransaction();
         T result = null;
         try {
-            String sql = " FROM " + getPersistenceClassName() + " model WHERE model." + property + "= :value";
+            String sql = " FROM " + getPersistenceClassName() +" model WHERE model." + property + "= :value";
             Query query = session.createQuery(sql);
             query.setParameter("value", value);
             result = (T) query.uniqueResult();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();

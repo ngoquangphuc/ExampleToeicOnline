@@ -86,7 +86,7 @@
         function showAlertBeforeDelete(callback) {
             swal({
                 title: "Xác nhận xóa",
-                text: "Bạn có chắc chắn xóa những dòng đã chọn",
+                text: "Bạn có chắc chắn xóa những dòng đã chọn?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Xác nhận",

@@ -135,14 +135,14 @@ public class UserController extends HttpServlet {
                     List<UserImportDTO> excelValues = returnValueFromExcel(fileName, fileLocation);
                     validateData(excelValues);
                     SessionUtil.getInstance().putValue(request, LIST_USER_IMPORT, excelValues);
-                    response.sendRedirect("/admin-user-import-validate.html?urlType=validate_import");
+                    response.sendRedirect("/toeic_web_war_exploded/admin-user-import-validate.html?urlType=validate_import");
                 }
             }
             if (userCommand.getUrlType() != null && userCommand.getUrlType().equals(IMPORT_DATA)) {
                 List<UserImportDTO> userImportDTOS = (List<UserImportDTO>) SessionUtil.getInstance().getValue(request, LIST_USER_IMPORT);
                 SingletonServiceUtil.getUserServiceInstance().saveUserImpote(userImportDTOS);
                 SessionUtil.getInstance().remove(request, LIST_USER_IMPORT);
-                response.sendRedirect("/admin-user-list.html?urlType=url_list");
+                response.sendRedirect("/toeic_web_war_exploded/admin-user-list.html?urlType=url_list");
 
             }
         } catch (Exception e) {

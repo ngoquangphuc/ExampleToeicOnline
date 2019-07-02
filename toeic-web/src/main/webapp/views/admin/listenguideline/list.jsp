@@ -114,8 +114,8 @@
                                                class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
                                                style="margin: 3em 0 1.5em;">
                                     <display:column title="<fieldset class='form-group'>
-                                                                <input type='checkbox' id='checkAll' class='check-box-element'>
-                                                                </fieldset>" class="center select-cell"
+                                                            <input type='checkbox' id='checkAll' class='check-box-element'>
+                                                            </fieldset>" class="center select-cell"
                                                     headerClass="center select-cell">
                                         <fieldset>
                                             <input type="checkbox" name="checkList"
@@ -137,15 +137,12 @@
                                            data-toggle="tooltip"
                                            title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-danger btn-cancel" data-toggle="tooltip"
-                                           title="<fmt:message key='label.user.delete' bundle='${lang}'/>"><i
-                                                class="fa fa-trash"
-                                                aria-hidden="true"></i></a>
                                     </display:column>
                                 </display:table>
                             </fmt:bundle>
                         </div>
                         <input type="hidden" name="urlType" id="urlType" value="url_list"/>
+                        <input type="hidden" name="crudaction" id="crudaction"/>
                     </form>
                 </div>
             </div>
@@ -155,10 +152,17 @@
 <script>
     $(document).ready(function () {
         $('#btnSearch').click(function () {
-            $('#urlType').val("url_list");
             $('#formUrl').submit();
         });
-    });
+    })
+
+    function warningBeforeDelete() {
+        showAlertBeforeDelete(function () {
+            $('#urlType').val('url_list');
+            $('#crudaction').val('redirect_delete');
+            $('#formUrl').submit();
+        });
+    }
 </script>
 </body>
 </html>
