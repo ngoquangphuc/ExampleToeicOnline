@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 @WebServlet("/login.html")
 public class LoginController extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
-    ResourceBundle bundle = ResourceBundle.getBundle("ApplicationResources");
+    ResourceBundle bundle = ResourceBundle.getBundle("ResourcesBundle");
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
