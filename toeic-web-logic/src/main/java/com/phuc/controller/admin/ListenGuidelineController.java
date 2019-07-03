@@ -71,7 +71,7 @@ public class ListenGuidelineController extends HttpServlet {
         mapMessage.put(WebConstant.REDIRECT_INSERT, resourceBundle.getString("label.listenguideline.add.success"));
         mapMessage.put(WebConstant.REDIRECT_UPDATE, resourceBundle.getString("label.listenguideline.update.success"));
         mapMessage.put(WebConstant.REDIRECT_DELETE, resourceBundle.getString("label.listenguideline.delete.success"));
-        mapMessage.put(WebConstant.REDIRECT_ERROR, resourceBundle.getString("lebel.message.error"));
+        mapMessage.put(WebConstant.REDIRECT_ERROR, resourceBundle.getString("label.message.error"));
         return mapMessage;
     }
 

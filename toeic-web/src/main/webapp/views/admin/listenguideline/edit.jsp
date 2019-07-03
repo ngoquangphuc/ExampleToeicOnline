@@ -45,7 +45,7 @@
                                 <label class="col-sm-3 control-label no-padding-right"><fmt:message
                                         key="label.guideline.title" bundle="${lang}"/></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="pojo.title" id="title"value="${item.pojo.title}"/>
+                                    <input class="form-control" type="text" name="pojo.title" id="title" value="${item.pojo.title}"/>
                                 </div>
                             </div>
                             <br/>
@@ -79,7 +79,7 @@
                                     <c:if test="${not empty item.pojo.content}">
                                         <c:set var="content" value="${item.pojo.content}"/>
                                     </c:if>
-                                    <textarea name="pojo.content" cols="80" role="10" id="listenGuidelineContent">${content}</textarea>
+                                    <textarea name="pojo.content" cols="80" role="10" id="ListenGuidelineContent">${content}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -103,7 +103,8 @@
             listenGuidelineId = ${item.pojo.listenGuidelineId};
         </c:if>
         $(document).ready(function () {
-            CKEDITOR.replace('listenGuidelineContent');
+            var editor = CKEDITOR.replace('ListenGuidelineContent');
+            CKFinder.setupCKEditor( editor, '/ckfinder/' );
             validateData();
             $('#uploadImage').change(function () {
                 readURL(this, "viewImage");
@@ -130,9 +131,9 @@
                     }
                 });
             }
-            $("#listenGuidelineContent").rules( "add", {
+            $("#ListenGuidelineContent").rules( "add", {
                 required: function () {
-                    CKEDITOR.instances.listenGuidelineContent.updateElement();
+                    CKEDITOR.instances.ListenGuidelineContent.updateElement();
                 },
                 messages: {
                     required: '<fmt:message key="label.empty" bundle="${lang}"/>'
