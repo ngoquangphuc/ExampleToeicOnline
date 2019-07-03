@@ -13,6 +13,11 @@
         <mapping class="com.phuc.core.persistence.entity.RoleEntity" />
         <mapping class="com.phuc.core.persistence.entity.UserEntity" />
         <mapping class="com.phuc.core.persistence.entity.CommentEntity" />
+        <mapping class="com.phuc.core.persistence.entity.ExaminationEntity" />
+        <mapping class="com.phuc.core.persistence.entity.ExaminationQuestionEntity" />
+        <mapping class="com.phuc.core.persistence.entity.ExerciseEntity" />
+        <mapping class="com.phuc.core.persistence.entity.ExerciseQuestionEntity" />
+        <mapping class="com.phuc.core.persistence.entity.ResultEntity" />
         <mapping class="com.phuc.core.persistence.entity.ListenGuidelineEntity" />
     </session-factory>
 </hibernate-configuration>
