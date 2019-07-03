@@ -3,6 +3,9 @@ package com.phuc.core.persistence.entity;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Created by Admin on 4/6/2017.
+ */
 @Entity
 @Table(name = "role")
 public class RoleEntity {

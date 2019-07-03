@@ -2,6 +2,9 @@ package com.phuc.core.persistence.entity;
 
 import javax.persistence.*;
 
+/**
+ * Created by Admin on 4/6/2017.
+ */
 @Entity
 @Table(name = "comment")
 public class CommentEntity {

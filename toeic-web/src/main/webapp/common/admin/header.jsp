@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp"%>
+         pageEncoding="UTF-8" %>
+<%@include file="/common/taglib.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -19,17 +19,16 @@
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         Welcome, ${login_name}
-
                     </a>
+                </li>
                 <li class="light-blue dropdown-modal">
-                    <c:url var="logoutUrl" value="#">
+                    <c:url var="logoutUrl" value="/logout.html">
                         <c:param name="action" value="logout"/>
                     </c:url>
                     <a href="${logoutUrl}">
                         <i class="ace-icon fa fa-power-off"></i>
                         <fmt:message key="label.logout" bundle="${lang}"/>
                     </a>
-                </li>
                 </li>
             </ul>
         </div>

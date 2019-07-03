@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Created by Admin on 4/6/2017.
+ */
 @Entity
 @Table(name = "listenguideline")
 public class ListenGuidelineEntity {

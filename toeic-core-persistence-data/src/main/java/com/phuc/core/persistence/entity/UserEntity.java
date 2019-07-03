@@ -1,10 +1,12 @@
 package com.phuc.core.persistence.entity;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Created by Admin on 4/6/2017.
+ */
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -30,6 +32,9 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntityList;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<ResultEntity> results;
 
     public Integer getUserId() {
         return userId;
@@ -85,5 +90,13 @@ public class UserEntity {
 
     public void setCommentEntityList(List<CommentEntity> commentEntityList) {
         this.commentEntityList = commentEntityList;
+    }
+
+    public List<ResultEntity> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ResultEntity> results) {
+        this.results = results;
     }
 }
