@@ -25,15 +25,18 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <input type="text" placeholder="<fmt:message key='label.user.name' bundle='${lang}'/>"
-                                           class="form-control" value="${item.pojo.name}" id="name" name="pojo.name" required>
+                                    <input type="text"
+                                           placeholder="<fmt:message key='label.user.name' bundle='${lang}'/>"
+                                           class="form-control" value="${item.pojo.name}" id="name" name="pojo.name"
+                                           required>
                                 </div>
                             </div>
                             <br/>
                             <br/>
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <input type="text" placeholder="<fmt:message key='label.user.fullname' bundle='${lang}'/>"
+                                    <input type="text"
+                                           placeholder="<fmt:message key='label.user.fullname' bundle='${lang}'/>"
                                            class="form-control" value="${item.pojo.fullName}" name="pojo.fullName">
                                 </div>
                             </div>
@@ -43,7 +46,8 @@
                                 <div class="md-form">
                                     <input type="password"
                                            placeholder="<fmt:message key='label.user.password' bundle='${lang}'/>"
-                                           class="form-control" value="${item.pojo.password}" id="password" name="pojo.password" required>
+                                           class="form-control" value="${item.pojo.password}" id="password"
+                                           name="pojo.password" required>
                                 </div>
                             </div>
                             <br/>
@@ -82,7 +86,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="label.close"
                                                                                                     bundle="${lang}"/></button>
-                    <button type="button" class="btn btn-primary" id="btnSave"><fmt:message key="label.save" bundle="${lang}"/></button>
+                    <button type="button" class="btn btn-primary" id="btnSave"><fmt:message key="label.save"
+                                                                                            bundle="${lang}"/></button>
                 </div>
             </div>
         </div>

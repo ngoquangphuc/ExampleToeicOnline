@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         return checkLogin;
     }
 
-    public void validateImpoteUser(List<UserImportDTO> userImportDTOS) {
+    public void validateImportUser(List<UserImportDTO> userImportDTOS) {
         List<String> names = new ArrayList<String>();
         List<String> roles = new ArrayList<String>();
 
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void saveUserImpote(List<UserImportDTO> userImportDTOS) {
+    public void saveUserImport(List<UserImportDTO> userImportDTOS) {
         for (UserImportDTO item: userImportDTOS) {
             if (item.isValid()) {
                 UserEntity userEntity = new UserEntity();

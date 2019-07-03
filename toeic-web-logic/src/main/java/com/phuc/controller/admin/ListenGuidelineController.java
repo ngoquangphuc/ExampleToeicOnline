@@ -35,10 +35,10 @@ public class ListenGuidelineController extends HttpServlet {
             throws ServletException, IOException {
         ListenGuidelineCommand command = FormUtil.populate(ListenGuidelineCommand.class, request);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("ResourcesBundle");
-        if (command.getUrlType() !=  null && command.getUrlType().equals(WebConstant.URL_LIST)) {
+        if (command.getUrlType() != null && command.getUrlType().equals(WebConstant.URL_LIST)) {
             if (command.getCrudaction() != null && command.getCrudaction().equals(WebConstant.REDIRECT_DELETE)) {
                 List<Integer> ids = new ArrayList<Integer>();
-                for (String item: command.getCheckList()) {
+                for (String item : command.getCheckList()) {
                     ids.add(Integer.parseInt(item));
                 }
                 Integer result = SingletonServiceUtil.getListenGuidelineServiceInstance().delete(ids);
@@ -54,7 +54,7 @@ public class ListenGuidelineController extends HttpServlet {
             request.setAttribute(WebConstant.LIST_ITEMS, command);
             RequestDispatcher rd = request.getRequestDispatcher("/views/admin/listenguideline/list.jsp");
             rd.forward(request, response);
-        } else if (command.getUrlType() !=  null && command.getUrlType().equals(WebConstant.URL_EDIT)) {
+        } else if (command.getUrlType() != null && command.getUrlType().equals(WebConstant.URL_EDIT)) {
             if (command.getPojo() != null && command.getPojo().getListenGuidelineId() != null) {
                 command.setPojo(SingletonServiceUtil.getListenGuidelineServiceInstance().findByListenGuidelineId("listenGuidelineId", command.getPojo().getListenGuidelineId()));
             }
@@ -95,12 +95,12 @@ public class ListenGuidelineController extends HttpServlet {
             throws ServletException, IOException {
         ListenGuidelineCommand command = new ListenGuidelineCommand();
         ResourceBundle bundle = ResourceBundle.getBundle("ResourcesBundle");
-        UploadUtil uploadUtil =  new UploadUtil();
+        UploadUtil uploadUtil = new UploadUtil();
         Set<String> valueTitle = buildSetValueListenGuideline();
         Object[] objects = uploadUtil.writeOrUpdateFile(request, valueTitle, WebConstant.LISTENGUIDELINE);
         boolean checkStatusUploadImage = (Boolean) objects[0];
         if (!checkStatusUploadImage) {
-            response.sendRedirect("/toeic_web_war_exploded/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+            response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
         } else {
             ListenGuidelineDTO dto = command.getPojo();
             if (StringUtils.isNotBlank(objects[2].toString())) {
@@ -117,17 +117,17 @@ public class ListenGuidelineController extends HttpServlet {
                     dto.setCreatedDate(listenGuidelineDTO.getCreatedDate());
                     ListenGuidelineDTO result = SingletonServiceUtil.getListenGuidelineServiceInstance().updateListenGuideline(dto);
                     if (result != null) {
-                        response.sendRedirect("/toeic_web_war_exploded/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_update");
+                        response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_update");
                     } else {
-                        response.sendRedirect("/toeic_web_war_exploded/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+                        response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
                     }
                 } else {
                     try {
                         SingletonServiceUtil.getListenGuidelineServiceInstance().saveListenGuideline(dto);
-                        response.sendRedirect("/toeic_web_war_exploded/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_insert");
+                        response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_insert");
                     } catch (ConstraintViolationException e) {
                         log.error(e.getMessage(), e);
-                        response.sendRedirect("/toeic_web_war_exploded/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+                        response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
                     }
                 }
             }
@@ -135,7 +135,7 @@ public class ListenGuidelineController extends HttpServlet {
     }
 
     private ListenGuidelineDTO returnValueOfDTO(ListenGuidelineDTO dto, Map<String, String> mapValue) {
-        for (Map.Entry<String, String> item: mapValue.entrySet()) {
+        for (Map.Entry<String, String> item : mapValue.entrySet()) {
             if (item.getKey().equals("pojo.title")) {
                 dto.setTitle(item.getValue());
             } else if (item.getKey().equals("pojo.content")) {

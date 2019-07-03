@@ -13,6 +13,6 @@ public interface UserService {
     void saveUser(UserDTO userDTO);
     UserDTO updateUser(UserDTO userDTO);
     CheckLogin checkLogin(String name, String password);
-    void validateImpoteUser(List<UserImportDTO> userImportDTOS);
-    void saveUserImpote(List<UserImportDTO> userImportDTOS);
+    void validateImportUser(List<UserImportDTO> userImportDTOS);
+    void saveUserImport(List<UserImportDTO> userImportDTOS);
 }
