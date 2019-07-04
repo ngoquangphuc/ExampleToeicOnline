@@ -71,12 +71,12 @@
     </div>
     <div class="span4">
         <img src="img/icon2.png">
-        <h2><fmt:message key="label.exercise.listen" bundle="${lang}"/></h2>
+        <h2><fmt:message key="label.exercise" bundle="${lang}"/></h2>
         <p>
             Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
             aliqua.
         </p>
-        <c:url var="listExerciseListen" value="/danh-sach-bai-tap-nghe.html">
+        <c:url var="listExerciseListen" value="/danh-sach-bai-tap.html">
             <c:param name="pojo.type" value="listening"/>
         </c:url>
         <a href="${listExerciseListen}">Read More &rarr;</a>
