@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/common/taglib.jsp" %>
+<%@ include file="/common/taglib.jsp" %>
 <c:url var="editUserUrl" value="/ajax-admin-user-edit.html">
     <c:param name="urlType" value="url_edit"/>
 </c:url>

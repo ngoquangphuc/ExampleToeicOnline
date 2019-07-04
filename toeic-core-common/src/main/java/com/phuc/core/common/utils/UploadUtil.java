@@ -18,9 +18,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class UploadUtil {
+    private final Logger log = Logger.getLogger(this.getClass());
     private final int maxMemorySize = 1024 * 1024 * 3;
     private final int maxRequestSize = 1024 * 1024 * 50;
-    private final Logger log = Logger.getLogger(this.getClass());
 
     public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
         String address = "/" + CoreConstant.FOLDER_UPLOAD;

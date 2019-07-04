@@ -14,7 +14,6 @@ public class UserBeanUtil {
         dto.setRoleDTO(RoleBeanUtil.entity2Dto(entity.getRoleEntity()));
         return dto;
     }
-
     public static UserEntity dto2Entity(UserDTO dto) {
         UserEntity entity = new UserEntity();
         entity.setUserId(dto.getUserId());
