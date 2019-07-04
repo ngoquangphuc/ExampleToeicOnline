@@ -1,5 +1,6 @@
 package com.phuc.controller.web;
 
+<<<<<<< HEAD
 import com.phuc.command.ExerciseCommand;
 import com.phuc.core.dto.ExerciseDTO;
 import com.phuc.core.dto.ListenGuidelineDTO;
@@ -9,6 +10,8 @@ import com.phuc.core.web.utils.RequestUtil;
 import com.phuc.core.web.utils.SingletonServiceUtil;
 import org.apache.commons.lang.StringUtils;
 
+=======
+>>>>>>> template
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,4 +59,14 @@ public class ExerciseController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
+=======
+
+@WebServlet("/bai-tap-nghe.html")
+public class ExerciseController extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("/views/web/exercise/detail.jsp");
+        rd.forward(request, response);
+    }
+>>>>>>> template
 }
