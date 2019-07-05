@@ -30,10 +30,14 @@
                         <div class="grid news_desc">
                             <h3>${item.name}</h3>
                             <c:url value="/bai-thi-thuc-hanh.html" var="detailUrl">
-                                <c:param name="pojo.examinationId" value="${item.examinationId}"/>
-                                <c:param name="page" value="1"/>
+                                <c:param name="examinationId" value="${item.examinationId}"/>
                             </c:url>
-                            <h4><span><a href="${detailUrl}">Làm bài thi</a></span></h4>
+                            <c:if test="${not empty login_name}">
+                                <h4><span><a href="${detailUrl}">Làm bài thi</a></span></h4>
+                            </c:if>
+                            <c:if test="${empty login_name}">
+                                <h4><span><fmt:message key="label.examination.require" bundle="${lang}"/></span></h4>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>
@@ -42,9 +46,6 @@
         </div>
     </div>
     <input type="hidden" id="page" name="page"/>
-<%--
-    <input type="hidden" name="pojo.type" value="${items.pojo.type}"/>
---%>
 </form>
 <script type="text/javascript">
     var totalPages = ${items.totalPages};

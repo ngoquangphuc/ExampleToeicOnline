@@ -19,7 +19,7 @@ public class ExerciseQuestionServiceImpl implements ExerciseQuestionService {
         if (exerciseId != null) {
             whereClause = " AND exerciseEntity.exerciseId = "+exerciseId+"";
         }
-        Object[] objects = SingletonDaoUtil.getExerciseQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
+        Object[] objects = SingletonDaoUtil.getExerciseQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
         for (ExerciseQuestionEntity item : (List<ExerciseQuestionEntity>) objects[1]) {
             ExerciseQuestionDTO dto = ExerciseQuestionBeanUtil.entity2Dto(item);
             dto.setExercise(ExerciseBeanUtil.entity2Dto(item.getExerciseEntity()));

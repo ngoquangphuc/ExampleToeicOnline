@@ -45,9 +45,6 @@ public class ExaminationController extends HttpServlet {
         if (StringUtils.isNotBlank(command.getPojo().getName())) {
             properties.put("name", command.getPojo().getName());
         }
-        /*if (command.getPojo().getType() != null) {
-            properties.put("type", command.getPojo().getType());
-        }*/
         return properties;
     }
 

@@ -64,7 +64,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return null;
     }
 
-    public void save(T entity) {
+    public T save(T entity) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -77,6 +77,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         } finally {
             session.close();
         }
+        return entity;
     }
 
     public T findById(ID id) {
@@ -98,57 +99,38 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return result;
     }
 
-    public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+    public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, String whereClause) {
         List<T> list = new ArrayList<T>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Object totalItem = 0;
-        String[] params = new String[property.size()];
-        Object[] values = new Object[property.size()];
-        int i = 0;
-        for (Map.Entry item : property.entrySet()) {
-            params[i] = (String) item.getKey();
-            values[i] = item.getValue();
-            i++;
-        }
+        Object[] nameQuery = HibernateUtil.builNameQuery(property);
         try {
             StringBuilder sql1 = new StringBuilder("FROM ");
-            sql1.append(getPersistenceClassName()).append(" WHERE 1=1 ");
-            if (property.size() > 0) {
-                for (int i1 = 0; i1 < params.length; i1++) {
-                    sql1.append(" and ").append("LOWER(" + params[i1] + ") LIKE '%' || :" + params[i1] + " || '%'");
-                }
-            }
+            sql1.append(getPersistenceClassName()).append(" WHERE 1=1 ").append(nameQuery[0]);
             if (sortExpression != null && sortDirection != null) {
                 sql1.append(" order by ").append(sortExpression);
-                sql1.append(" " + (sortDirection.equals(CoreConstant.SORT_ASC) ? "desc" : "asc"));
+                sql1.append(" " + (sortDirection.equals(CoreConstant.SORT_ASC) ? "asc" : "desc"));
+            }
+            if (whereClause != null) {
+                sql1.append(whereClause);
             }
             Query query1 = session.createQuery(sql1.toString());
-            if (property.size() > 0) {
-                for (int i2 = 0; i2 < params.length; i2++) {
-                    query1.setParameter(params[i2], values[i2]);
-                }
-            }
+            setParameterToQuery(nameQuery, query1);
             if (offset != null && offset >= 0) {
                 query1.setFirstResult(offset);
             }
-            if (limit != 0 && limit > 0) {
+            if (limit != null && limit > 0) {
                 query1.setMaxResults(limit);
             }
             list = query1.list();
             StringBuilder sql2 = new StringBuilder("select count(*) from ");
-            sql2.append(getPersistenceClassName()).append(" where 1=1 ");
-            if (property.size() > 0) {
-                for (int k = 0; k < params.length; k++) {
-                    sql2.append(" and ").append("LOWER(" + params[k] + ") LIKE '%' || :" + params[k] + " || '%'");
-                }
+            sql2.append(getPersistenceClassName()).append(" where 1=1 ").append(nameQuery[0]);
+            if (whereClause != null) {
+                sql2.append(whereClause);
             }
             Query query2 = session.createQuery(sql2.toString());
-            if (property.size() > 0) {
-                for (int k1 = 0; k1 < params.length; k1++) {
-                    query2.setParameter(params[k1], values[k1]);
-                }
-            }
+            setParameterToQuery(nameQuery, query2);
             totalItem = query2.list().get(0);
             transaction.commit();
         } catch (HibernateException e) {
@@ -159,6 +141,16 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.close();
         }
         return new Object[]{totalItem, list};
+    }
+
+    private void setParameterToQuery(Object[] nameQuery, Query query) {
+        if (nameQuery.length == 3) {
+            String[] params = (String[]) nameQuery[1];
+            Object[] values = (Object[]) nameQuery[2];
+            for (int i2 = 0; i2 < params.length ; i2++) {
+                query.setParameter(params[i2], values[i2]);
+            }
+        }
     }
 
     public Integer delete(List<ID> ids) {
